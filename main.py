@@ -1,87 +1,58 @@
-# main.py
-
 import argparse
 import logging
 import sys
 
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+
 from utils import config
-from utils.logger import setup_logger
 from data.preprocessing import load_data, preprocess_data, split_data
-from models.training import build_model, compile_model, train_model
-from models.evaluation import evaluate_model, predict, calculate_metrics
+from models.model import build_model
+from utils.logger import setup_logger
 
 def main(args):
-    """Executa o projeto Autonoma."""
-
-    # Configuração do logger
-    logger = setup_logger(config.APP_NAME, args.log_file)
-
-    # Carregamento dos dados
-    logger.info("Carregando dados...")
+    # Carrega os dados
     data = load_data(args.data_file)
 
-    # Pré-processamento dos dados
-    logger.info("Pré-processando dados...")
+    # Pre-processa os dados
     data = preprocess_data(data)
 
-    # Divisão dos dados em treinamento e teste
-    logger.info("Dividindo dados em treinamento e teste...")
+    # Divide os dados em conjuntos de treino e teste
     X_train, X_test, y_train, y_test = split_data(data, args.target_column)
 
-    # Construção do modelo de IA
-    logger.info("Construindo modelo de IA...")
+    # Verifica se os dados foram divididos corretamente
+    if X_train is None or X_test is None or y_train is None or y_test is None:
+        print("Não foi possível dividir os dados em conjuntos de treino e teste.")
+        return
+
+    # Constroi o modelo
     model = build_model(X_train.shape[1:], args.hidden_layers)
 
-    # Compilação do modelo de IA
-    logger.info("Compilando modelo de IA...")
-    model = compile_model(model, args.optimizer, args.loss)
+    # Compila o modelo
+    model.compile(loss=args.loss, optimizer=args.optimizer, metrics=['accuracy'])
 
-    # Treinamento do modelo de IA
-    logger.info("Treinando modelo de IA...")
-    model = train_model(model, X_train, y_train, args.epochs, args.batch_size)
+    # Treina o modelo
+    model.fit(X_train, y_train, epochs=args.epochs, batch_size=args.batch_size, validation_data=(X_test, y_test))
 
-    # Avaliação do desempenho do modelo de IA
-    logger.info("Avaliando desempenho do modelo de IA...")
-    loss, accuracy = evaluate_model(model, X_test, y_test)
-    logger.info(f"Loss: {loss:.4f}, Accuracy: {accuracy:.4f}")
+    # Avalia o modelo
+    _, accuracy = model.evaluate(X_test, y_test)
+    print(f"Acurácia: {accuracy}")
 
-    # Realização de previsões com o modelo de IA
-    logger.info("Realizando previsões com o modelo de IA...")
-    predictions = predict(model, X_test)
+    if __name__ == "__main__":
+        # Configura o logger
+        logger = setup_logger(config.APP_NAME, args.log_file)
 
-    # Cálculo das métricas de desempenho do modelo de IA
-    logger.info("Calculando métricas de desempenho do modelo de IA...")
-    metrics = calculate_metrics(y_test, predictions)
+        # Configura o parser de argumentos
+        parser = argparse.ArgumentParser(description="Treina um modelo de regressão linear com dados fornecidos.")
+        parser.add_argument("--data_file", type=str, required=True, help="Nome do arquivo CSV contendo os dados.")
+        parser.add_argument("--target_column", type=str, required=True, help="Nome da coluna alvo.")
+        parser.add_argument("--hidden_layers", type=int, nargs="+", help="Número de camadas ocultas do modelo.")
+        parser.add_argument("--optimizer", type=str, default="adam", help="Optimizador a ser usado no treinamento do modelo.")
+        parser.add_argument("--loss", type=str, default="mean_squared_error", help="Função de perda a ser usada no treinamento do modelo.")
+        parser.add_argument("--epochs", type=int, default=100, help="Número de épocas de treinamento do modelo.")
+        parser.add_argument("--batch_size", type=int, default=32, help="Tamanho do lote de treinamento do modelo.")
+        args = parser.parse_args()
 
-    logger.info("Projeto Autonoma concluído com sucesso!")
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Projeto Autonoma")
-
-    parser.add_argument("--data_file", type=str, required=True,
-                        help="Caminho do arquivo de dados")
-
-    parser.add_argument("--target_column", type=str, required=True,
-                        help="Nome da coluna alvo")
-
-    parser.add_argument("--log_file", type=str, required=True,
-                        help="Caminho do arquivo de log")
-
-    parser.add_argument("--hidden_layers", type=int, nargs="+",
-                        help="Número de unidades nas camadas ocultas do modelo de IA")
-
-    parser.add_argument("--optimizer", type=str, default="adam",
-                        help="Otimizador usado no modelo de IA")
-
-    parser.add_argument("--loss", type=str, default="mean_squared_error",
-                        help="Função de perda usada no modelo de IA")
-
-    parser.add_argument("--epochs", type=int, default=10,
-                        help="Número de épocas de treinamento do modelo de IA")
-
-    parser.add_argument("--batch_size", type=int, default=32,
-                        help="Tamanho do lote de treinamento do modelo de IA")
-
-    args = parser.parse_args()
-
+    # Inicia a execução do programa
     main(args)

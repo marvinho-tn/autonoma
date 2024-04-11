@@ -1,13 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 
-def split_data(data, target_column, test_size=0.2, random_state=42):
-    """Divide os dados em conjunto de treinamento e teste."""
-    X = data.drop(target_column, axis=1)
-    y = data[target_column]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
-    return X
-
 def load_data(file_name):
     """
     Carrega os dados do arquivo CSV.
@@ -52,8 +45,8 @@ def preprocess_categorical_data(data):
     :return: Dados pre-processados.
     """
     # Verifica se os dados não são None
-    if data is None:
-        return None
+    if data is None or data.empty:
+        return pd.DataFrame()
 
     # Seleciona as colunas categóricas
     categorical_columns = data.select_dtypes(include=['object']).columns
@@ -83,3 +76,23 @@ def preprocess_data(data):
     data = preprocess_categorical_data(data)
 
     return data
+
+def split_data(data, target_column):
+    """
+    Divide os dados em conjuntos de treino e teste.
+
+    :param data: Dados a serem divididos.
+    :param target_column: Nome da coluna alvo.
+    :return: Conjuntos de treino e teste.
+    """
+    # Verifica se os dados não são None
+    if data is None or data.empty:
+        return None, None, None, None
+
+    # Divide os dados em conjuntos de treino e teste
+    X = data.drop(target_column, axis=1)
+    y = data[target_column]
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    return X_train, X_test, y_train, y_test
