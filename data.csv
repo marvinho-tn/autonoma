@@ -1,4 +1,0 @@
-sensor1,sensor2,sensor3,imagem_path,anotacao_path,latitude,longitude,acao,recompensa,estado_trafego
-25.6,0.8,100.2,/caminho/para/imagem1.jpg,/caminho/para/anotacao1.xml,-23.5505,-46.6333,1,10,congestionado
-30.2,1.2,98.5,/caminho/para/imagem2.jpg,/caminho/para/anotacao2.xml,-23.5506,-46.6334,2,5,livre
-28.5,0.9,102.1,/caminho/para/imagem3.jpg,/caminho/para/anotacao3.xml,-23.5507,-46.6335,3,15,moderadop

@@ -20,4 +20,4 @@ else
 fi
 
 # Run the automa.py script
-python3 src/automa.py
+python3 main.py
