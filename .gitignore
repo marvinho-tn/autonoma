@@ -165,3 +165,9 @@ cython_debug/
 
 .DS_Store
 .DS_Store
+
+deb.*
+*.deb
+*deb*
+
+log.txt

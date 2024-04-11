@@ -1,6 +1,11 @@
 numpy
 tensorflow
 pandas
-sklearn
+scikit-learn
 logging
 sys
+cuda-python
+tensorrt
+tensorrt_lean
+tensorrt_dispatch
+onnx_graphsurgeon
