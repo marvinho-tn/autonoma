@@ -37,6 +37,39 @@ git clone https://github.com/seu-usuario/nome-do-repositorio.git
 ```bash
 cd nome-do-repositorio
 ```
+### Bibliotecas
+
+Aqui está a lista de bibliotecas necessárias para todas as camadas implementadas e organizadas no projeto de IA autônoma com acesso à rede de computadores, formatada em markdown:
+
+- **TensorFlow**
+
+  Essa biblioteca é essencial para o desenvolvimento e treinamento de modelos de aprendizado de máquina, como redes neurais convolucionais (CNNs) e outros algoritmos de IA avançados.
+
+- **NumPy**
+
+  Utilizada para operações matemáticas e manipulação de arrays, o NumPy é amplamente empregado em processamento de dados e treinamento de modelos de aprendizado de máquina.
+
+- **scikit-learn**
+
+  Essa biblioteca é valiosa para tarefas de aprendizado de máquina, como pré-processamento de dados, seleção de modelos e avaliação de desempenho.
+
+- **Pandas**
+
+  Importante para manipulação e análise de dados, o Pandas é útil para lidar com conjuntos de dados estruturados e facilitar o pré-processamento.
+
+- **Matplotlib**
+
+  Essa biblioteca é essencial para visualização de dados, gráficos e resultados de modelos de aprendizado de máquina.
+
+- **OpenCV**
+
+  Fundamental para processamento de imagens, o OpenCV é crucial para tarefas de visão computacional e reconhecimento de padrões.
+
+- **UnitTest**
+
+  A biblioteca unittest fornece uma estrutura robusta para testes de unidade, garantindo que cada camada funcione corretamente e independentemente.
+
+Essas bibliotecas são essenciais para garantir o funcionamento adequado de todas as camadas implementadas no projeto de IA autônoma, abrangendo desde o processamento de dados até o treinamento de modelos avançados.
 
 #### Execução do Projeto
 
