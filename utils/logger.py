@@ -2,22 +2,11 @@
 
 import logging
 
-def setup_logger(logger_name, log_file, level=logging.INFO):
-    """
-    Configura o logger do projeto.
-
-    :param logger_name: Nome do logger.
-    :param log_file: Caminho do arquivo de log.
-    :param level: Nível de log.
-    """
-    l = logging.getLogger(logger_name)
+def setup_logger(logger_name, log_file):
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s : %(message)s')
     fileHandler = logging.FileHandler(log_file, mode='w')
     fileHandler.setFormatter(formatter)
-
-    streamHandler = logging.StreamHandler()
-    streamHandler.setFormatter(formatter)
-
-    l.setLevel(level)
-    l.addHandler(fileHandler)
-    l.addHandler(streamHandler)
+    logger.addHandler(fileHandler)
+    return logger
