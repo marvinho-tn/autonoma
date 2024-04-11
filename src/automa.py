@@ -1,6 +1,6 @@
-from data_handling import load_data, preprocess_data
-from model_training import build_model, train_model
-from model_evaluation import evaluate_model
+from modules.data_handling import load_data, preprocess_data
+from modules.model_training import build_model, train_model
+from modules.model_evaluation import evaluate_model
 
 # Carregar e pré-processar os dados
 data = load_data('data.csv')
