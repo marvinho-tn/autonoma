@@ -4,10 +4,10 @@ import argparse
 import logging
 import sys
 
-from utils import setup_logger
-from data_preprocessing import load_data, preprocess_data, split_data
-from model_training import build_model, compile_model, train_model
-from model_evaluation import evaluate_model, predict, calculate_metrics
+from utils.logger import setup_logger
+from data.preprocessing import load_data, preprocess_data, split_data
+from models.training import build_model, compile_model, train_model
+from models.evaluation import evaluate_model, predict, calculate_metrics
 
 def main(args):
     """Executa o projeto Autonoma."""

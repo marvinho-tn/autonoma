@@ -10,6 +10,11 @@ def load_data(file_path):
     data = pd.read_csv(file_path)
     return data
 
+def preprocess_data(data):
+    preprocess_numerical_data(data)
+    preprocess_categorical_data(data)
+    return data
+
 def preprocess_numerical_data(data, scaler=StandardScaler()):
     """Realiza o pré-processamento de dados numéricos."""
     numerical_columns = data.select_dtypes(include=['int64', 'float64']).columns
