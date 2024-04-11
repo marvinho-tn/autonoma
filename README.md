@@ -69,7 +69,7 @@ Aqui está a lista de bibliotecas necessárias para todas as camadas implementad
 
   A biblioteca unittest fornece uma estrutura robusta para testes de unidade, garantindo que cada camada funcione corretamente e independentemente.
 
-  - **SQLAlchemy**
+- **SQLAlchemy**
 
   O gerenciamento de dados é um aspecto importante da implementação de uma IA autônoma com acesso à rede de computadores. Abaixo, forneço um exemplo de como implementar um sistema de gerenciamento de dados usando a biblioteca SQLAlchemy no Python.
 
