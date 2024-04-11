@@ -20,4 +20,4 @@ which python
 # Exemplo: Definir variáveis de ambiente, configurar permissões de arquivos, etc.
 
 # Executar o automa.py
-python3.9 automa.py
+python3.9 src/automa.py
