@@ -21,7 +21,14 @@ def preprocess_data(data):
     :return: DataFrame do Pandas preprocessado.
     """
     # Normalização dos dados
-    data_normalized = (data - data.min()) / (data.max() - data.min())
+    # Selecionar apenas as colunas numéricas para normalização
+    data_numeric = data.select_dtypes(include=['float', 'int'])
+
+    # Normalizar apenas as colunas numéricas
+    data_normalized = (data_numeric - data_numeric.min()) / (data_numeric.max() - data_numeric.min())
+
+    # Reatribuir os valores normalizados ao DataFrame original
+    data[data_numeric.columns] = data_normalized
 
     # Separação dos dados em features e marcadores
     X = data_normalized.drop('marcador', axis=1)
