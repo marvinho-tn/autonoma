@@ -1,7 +1,5 @@
 import pandas as pd
-import numpy as np
-from sklearn.preprocessing import StandardScaler
-from data.loader import load_data_from_csv
+from sklearn.preprocessing import OneHotEncoder
 
 def split_data(data, target_column, test_size=0.2, random_state=42):
     """Divide os dados em conjunto de treinamento e teste."""
@@ -10,9 +8,22 @@ def split_data(data, target_column, test_size=0.2, random_state=42):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     return X
 
+def load_data(file_name):
+    """
+    Carrega os dados do arquivo CSV.
+
+    :param file_name: Nome do arquivo CSV a ser carregado.
+    :return: Dados carregados como um DataFrame do Pandas.
+    """
+    data = pd.read_csv(file_name)
+    return data
+
 def preprocess_numerical_data(data):
     """
     Pre-processa os dados numéricos.
+
+    :param data: Dados a serem pre-processados.
+    :return: Dados pre-processados.
     """
     # Verifica se o arquivo data.csv contém dados numéricos
     if data.select_dtypes(include=['int64', 'float64']).empty:
@@ -36,7 +47,14 @@ def preprocess_numerical_data(data):
 def preprocess_categorical_data(data):
     """
     Pre-processa os dados categóricos.
+
+    :param data: Dados a serem pre-processados.
+    :return: Dados pre-processados.
     """
+    # Verifica se os dados não são None
+    if data is None:
+        return None
+
     # Seleciona as colunas categóricas
     categorical_columns = data.select_dtypes(include=['object']).columns
     categorical_data = data[categorical_columns]
@@ -54,6 +72,9 @@ def preprocess_categorical_data(data):
 def preprocess_data(data):
     """
     Pre-processa os dados.
+
+    :param data: Dados a serem pre-processados.
+    :return: Dados pre-processados.
     """
     # Pre-processa os dados numéricos
     data = preprocess_numerical_data(data)
@@ -62,16 +83,3 @@ def preprocess_data(data):
     data = preprocess_categorical_data(data)
 
     return data
-
-def load_data(args):
-    """
-    Carrega os dados do arquivo data.csv, pre-processa-os e salva-os no arquivo processed_data.csv.
-    """
-    # Carrega os dados do arquivo data.csv
-    data = load_data_from_csv()
-
-    # Pre-processa os dados
-    processed_data = preprocess_data(data)
-
-    # Salva os dados pre-processados no arquivo processed_data.csv
-    processed_data.to_csv('processed_data.csv', index=False)
