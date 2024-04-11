@@ -15,9 +15,10 @@ else
   brew install python
   alias python=python3
   alias pip=pip3
-  # Install required packages using pip
-  pip install -r requirements.txt
 fi
+
+# Install required packages using pip
+pip install -r requirements.txt
 
 # Run the automa.py script
 python main.py --data_file=data.csv --target_column=target --log_file=log.txt
