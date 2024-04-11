@@ -19,5 +19,5 @@ else
   pip install -r requirements.txt
 fi
 
-# Run the main script
-python3 main.py
+# Run the automa.py script
+python3 src/automa.py
