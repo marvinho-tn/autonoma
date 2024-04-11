@@ -15,23 +15,24 @@ def load_data(file_path):
     return data
 
 def preprocess_data(data):
-    """
-    Preprocessa os dados para serem usados em um modelo de machine learning.
-    :param data: DataFrame do Pandas contendo os dados.
-    :return: DataFrame do Pandas preprocessado.
-    """
-    # Normalização dos dados
-    # Selecionar apenas as colunas numéricas para normalização
-    data_numeric = data.select_dtypes(include=['float', 'int'])
+    # Inicializar a variável X
+    X = pd.DataFrame()
 
-    # Normalizar apenas as colunas numéricas
-    data_normalized = (data_numeric - data_numeric.min()) / (data_numeric.max() - data_numeric.min())
+    # Verificar se as colunas relevantes são numéricas
+    numeric_columns = ['sensor1', 'sensor2', 'sensor3', 'latitude', 'longitude', 'acao', 'recompensa']
+    if all(data[col].dtype == 'float64' for col in numeric_columns):
+        # Converter as colunas relevantes em valores numéricos
+        data[numeric_columns] = data[numeric_columns].apply(pd.to_numeric, errors='coerce')
 
-    # Reatribuir os valores normalizados ao DataFrame original
-    data[data_numeric.columns] = data_normalized
+        # Normalizar os dados
+        data_normalized = (data[numeric_columns] - data[numeric_columns].min()) / (data[numeric_columns].max() - data[numeric_columns].min())
 
-    # Separação dos dados em features e marcadores
-    X = data_normalized.drop('marcador', axis=1)
-    y = data_normalized['marcador']
+        # Verificar se a coluna 'marcador' existe antes de tentar removê-la
+        if 'marcador' in data.columns:
+            X = data_normalized.drop('marcador', axis=1)
+        else:
+            X = data_normalized
+    else:
+        print("Algumas colunas não puderam ser convertidas em valores numéricos.")
 
-    return X, y
+    return X

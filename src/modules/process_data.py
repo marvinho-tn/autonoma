@@ -4,6 +4,16 @@ import pandas as pd
 df = pd.read_csv("dados.csv")
 
 # Criar as colunas xrav e yrav a partir de outras colunas existentes
+df["xrav"] = df["sensor1"]
+df["yrav"] = df["sensor2"]
+
+# Converter as colunas relevantes em valores numéricos
+df["xrav"] = df["xrav"].astype(float)
+df["yrav"] = df["yrav"].astype(float)
+
+# Mapear as outras colunas para variáveis
+sensor1 = df["xrav"].values
+sensor2 = df["yrav"].values
 sensor3 = df["sensor3"].astype(float).values
 latitude = df["latitude"].astype(float).values
 longitude = df["longitude"].astype(float).values
@@ -16,6 +26,8 @@ anotacao_path = df["anotacao_path"].values
 estado_trafego = df["estado_trafego"].values
 
 # Exibir os valores das variáveis
+print("sensor1:", sensor1)
+print("sensor2:", sensor2)
 print("sensor3:", sensor3)
 print("imagem_path:", imagem_path)
 print("anotacao_path:", anotacao_path)
