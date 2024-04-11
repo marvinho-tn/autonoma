@@ -20,4 +20,4 @@ else
 fi
 
 # Run the automa.py script
-python3 main.py
+python main.py --data_file=data.csv --target_column=target --log_file=log.txt

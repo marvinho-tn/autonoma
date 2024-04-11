@@ -4,6 +4,7 @@ import argparse
 import logging
 import sys
 
+from utils import config
 from utils.logger import setup_logger
 from data.preprocessing import load_data, preprocess_data, split_data
 from models.training import build_model, compile_model, train_model
@@ -13,7 +14,7 @@ def main(args):
     """Executa o projeto Autonoma."""
 
     # Configuração do logger
-    logger = setup_logger(args.log_file)
+    logger = setup_logger(config.APP_NAME, args.log_file)
 
     # Carregamento dos dados
     logger.info("Carregando dados...")
