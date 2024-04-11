@@ -1,0 +1,8 @@
+tensorflow
+numpy
+scikit
+pandas
+matplotlib
+opencv
+unittest
+sqlalchemy
