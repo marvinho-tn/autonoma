@@ -14,4 +14,4 @@ sudo pip3 install -r requirements.txt
 # Exemplo: Definir variáveis de ambiente, configurar permissões de arquivos, etc.
 
 # Executar o main.py
-python3.9 main.py
+python3.9 autonoma.py
