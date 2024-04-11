@@ -79,8 +79,11 @@ Essas bibliotecas são essenciais para garantir o funcionamento adequado de toda
 
 1. Execute o script principal:
 
+- Linux
+
 ```bash
-python main.py
+chmod +x exec.sh
+./exec.sh
 ```
 
 Isso irá carregar e pré-processar os dados, construir e treinar o modelo, e avaliar seu desempenho.

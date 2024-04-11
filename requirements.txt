@@ -1,8 +1,8 @@
 tensorflow
 numpy
-scikit
+scikit-learn
 pandas
 matplotlib
-opencv
+opencv-python
 unittest
 sqlalchemy
